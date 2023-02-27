@@ -6,7 +6,18 @@ function TodoContainer({name, onDone}){
       <label>{name}</label>
       <input type = "checkbox" onClick={onDone()}></input>
     </div>
-  )
+  );
+}
+
+function TodoSubmitArea(){
+  return (
+    <div>
+      <input type = "text">
+        
+      </input>
+      <button>Submit</button>
+    </div>
+  );
 }
 
 function App() {
@@ -14,7 +25,10 @@ function App() {
     console.log("done" + i);
   }
   return (
-    <TodoContainer name = "Task 1" onDone = {() => onDone(1)}></TodoContainer>
+    <>
+      <TodoContainer name = "Task 1" onDone = {() => onDone(1)}></TodoContainer>
+      <TodoSubmitArea></TodoSubmitArea>
+    </>
   );
 }
 
