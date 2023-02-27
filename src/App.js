@@ -1,24 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+function TodoContainer({name, onDone}){
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <label>{name}</label>
+      <input type = "checkbox" onClick={onDone()}></input>
     </div>
+  )
+}
+
+function App() {
+  function onDone(i){
+    console.log("done" + i);
+  }
+  return (
+    <TodoContainer name = "Task 1" onDone = {() => onDone(1)}></TodoContainer>
   );
 }
 
