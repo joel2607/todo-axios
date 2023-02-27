@@ -4,5 +4,3 @@ This project will be a basic todo app that will get data from a webserver and se
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-
