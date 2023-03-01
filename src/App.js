@@ -21,18 +21,9 @@ function TodoContainer({task, onDone}){
   );
 }
 
-function TodoSubmitArea({onAdd}){
-
-  return (
-    <div>
-      <input type = "text"></input>
-      <button>Add</button>
-    </div>
-  );
-}
-
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [input, setInput] =  useState('');
   
   useEffect(() => {
     server.get('/')
@@ -45,10 +36,24 @@ function App() {
   }, []);
   
   function handleDone(id){
-    let new_tasks = tasks.slice() 
-    let task_handled = new_tasks[new_tasks.findIndex( task => task.id === id)];
+    let _tasks = tasks.slice() 
+    let task_handled = _tasks[_tasks.findIndex( task => task.id === id)];
     task_handled.done = !task_handled.done;
-    setTasks(new_tasks);
+    server.put('/', task_handled).catch((err) => console.log(err));
+    setTasks(_tasks);
+  }
+
+  function createTask(taskName){
+    server.post('/', {
+      text: taskName
+    })
+    .then((response) => {
+      let this_tasks = tasks.slice();
+      this_tasks.push(response.data);
+      console.log(this_tasks);
+      setTasks(this_tasks);
+    })
+    .catch((err) => console.log(err));
   }
 
   const taskElements = tasks.map((task) => {
@@ -58,7 +63,11 @@ function App() {
   });
   return (
     <div className='App'>
-      <TodoSubmitArea></TodoSubmitArea>
+      <div>
+        <input type = "text" onChange={(event) => setInput(event.target.value)}></input>
+        <button onClick={() => createTask(input)}>Add</button>
+      </div>
+
       {taskElements}
     </div>
   );
