@@ -50,8 +50,9 @@ function App() {
     .then((response) => {
       let this_tasks = tasks.slice();
       this_tasks.push(response.data);
-      console.log(this_tasks);
       setTasks(this_tasks);
+      setInput("");
+      
     })
     .catch((err) => console.log(err));
   }
@@ -64,7 +65,7 @@ function App() {
   return (
     <div className='App'>
       <div>
-        <input type = "text" onChange={(event) => setInput(event.target.value)}></input>
+        <input type = "text" onChange={(event) => setInput(event.target.value)} value = {input}></input>
         <button onClick={() => createTask(input)}>Add</button>
       </div>
 
